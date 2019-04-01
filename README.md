@@ -40,3 +40,11 @@ npm install
 sudo service mongod start
 npm start
 ```
+
+#### Testing
+```
+git clone https://github.com/korsejong/ShoppingHistory.git
+npm install
+sudo service mongod start
+npm test
+```
