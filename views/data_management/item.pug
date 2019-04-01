@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    h2.mt-3 Item Management
+    div.container.mt-5.col-8
+        h3.mt-5 Create
+        form#createItemForm(method='post' action='/api/item' enctype="multipart/form-data")
+            div.row
+                div.form-group.col-9
+                    input.form-control(type='text' name='name' placeholder='Enter name')
+                div.form-group.col-9
+                    input.form-control(type='number' name='price' placeholder='Enter price')
+                div.form-group.col-9
+                    input.form-control(type='file' name='thumbnail')
+                div.form-group.col-3
+                    input.form-control(type='submit' value='Submit')

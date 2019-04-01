@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    h2.mt-3 Items
+    div.mt-5.table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th ID
+                    th Name
+                    th Price
+                    th Thumbnail
+            tbody
+                - for(let item of items)
+                    tr
+                        td
+                            p=item._id
+                        td
+                            p=item.name
+                        td
+                            p=item.price
+                        td
+                            img(src=item.thumbnail width=50 height=50)

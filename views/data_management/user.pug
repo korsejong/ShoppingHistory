@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    h2.mt-3 User data management
+    div.container.mt-5.col-8
+        h3.mt-5 Create
+        form#createUserForm
+            div.row
+                div.form-group.col-9
+                    input.form-control(type='email' name='email' placeholder='Enter email')
+                div.form-group.col-3
+                    input.form-control(type='submit' value='Submit')

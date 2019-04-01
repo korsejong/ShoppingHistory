@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    h2.mt-3 Users
+    div.mt-5.table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th ID
+                    th Email
+            tbody
+                - for(let user of users)
+                    tr
+                        td
+                            p=user._id
+                        td
+                            p=user.email
+    h2.mt-3 Items
+    div.mt-5.table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th ID
+                    th Name
+                    th Price
+                    th Thumbnail
+            tbody
+                - for(let item of items)
+                    tr
+                        td
+                            p=item._id
+                        td
+                            p=item.name
+                        td
+                            p=item.price
+                        td
+                            img(src=item.thumbnail width=50 height=50)
+    h2.mt-3 Orders
+    div.mt-5.table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th ID
+                    th Email
+                    th Item name
+                    th Item price
+                    th Thumbnail
+                    th Status
+            tbody
+                - for(let user of users)
+                    - for(let order of user.orderItems)
+                        tr
+                            td
+                                p=order.id
+                            td
+                                p=user.email
+                            td
+                                p=order.item.name
+                            td
+                                p=order.item.price
+                            td
+                                img(src=order.item.thumbnail width=50 height=50)
+                            td
+                                p=order.status
+
+

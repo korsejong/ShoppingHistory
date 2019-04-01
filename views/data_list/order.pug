@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    h2.mt-3 Orders
+    div.mt-5.table-responsive
+        table.table.table-striped.table-sm
+            thead
+                tr
+                    th ID
+                    th Email
+                    th Item name
+                    th Item price
+                    th Thumbnail
+                    th Status
+            tbody
+                - for(let user of users)
+                    - for(let order of user.orderItems)
+                        tr
+                            td
+                                p=order.id
+                            td
+                                p=user.email
+                            td
+                                p=order.item.name
+                            td
+                                p=order.item.price
+                            td
+                                img(src=order.item.thumbnail width=50 height=50)
+                            td
+                                p=order.status
