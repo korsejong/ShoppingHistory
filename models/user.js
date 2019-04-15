@@ -38,6 +38,13 @@ userSchema.statics = {
     findAll() {
         return this.find({deleted: false});
     },
+    findInPage(page, amount){
+        amount = amount == null ? 10 : amount;
+        return this.find({deleted: false})
+                    .sort('created_at')
+                    .limit(amount)
+                    .skip(page*amount);
+    },
     findByEmail(email){
         return this.findOne({
             email: email,
