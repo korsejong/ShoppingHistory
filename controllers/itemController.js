@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * /api/item:
+ *   get:
+ *     description: 
+ *     responses:
+ *       200:
+ *         description:
+ *   post:
+ *     description: 
+ *       responses:
+ *       200:
+ *         description:
+ *   put:
+ *     description:
+ *       responses:
+ *       200:
+ *         description:
+ *   delete:
+ *     description:
+ *       responses:
+ *       200:
+ *         description:
+ */
+
 const router = require('express').Router();
 const service = require('../service/itemService');
 const upload = require('../utils/fileUpload');
