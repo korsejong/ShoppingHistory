@@ -33,6 +33,6 @@ router.put('/:id', service.updateItem);
 router.delete('/:id', service.deleteItem);
 
 router.get('/', service.readAllItem);
-router.get('/search/:name', service.readItemByName);
+router.get('/:name', service.readItemByName);
 
 module.exports = router;

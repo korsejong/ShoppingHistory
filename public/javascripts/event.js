@@ -4,7 +4,7 @@ const createUser = (e) => {
         email: $('input[name="email"]').val()
     };
     $.ajax({
-        url: '/api/user',
+        url: '/api/users',
         type: 'post',
         dataType: 'application/json',
         data: user,
@@ -18,97 +18,11 @@ const createUser = (e) => {
     });
     return false;
 };
-
-const readAllUser = () => {
-    $.ajax({
-        url: '/api/user/',
-        type: 'get',
-        dataType: 'application/json',
-        data: {},
-        success: (data) => {
-            console.log(data);
-            alert("success");
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-};
-
-const readUserByEmail = () => {
-    let email = $('input[name="email"]').val();
-    $.ajax({
-        url: '/api/user/' + email,
-        type: 'get',
-        dataType: 'application/json',
-        data: {},
-        success: (data) => {
-            console.log(data);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-};
-$("#formular").submit(function (e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-    console.log(formData)
-    $.ajax({
-        type: "POST",
-        url: "/users/bild",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(r){
-            console.log("result",r)
-        },
-        error: function (e) {
-            console.log("some error", e);
-        }
-    });
-
-});
-const createItem = (e) => {
-    e.preventDefault();
-    let formData = new FormData($('#createItemForm')[0]);
-    $.ajax({
-        url: '/api/item',
-        type: 'post',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: (data) => {
-            console.log(data);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-    return false;
-};
-
-const readAllItem = (e) => {
-    e.preventDefault();
-    $.ajax({
-        url: '/api/item',
-        type: 'get',
-        dataType: 'json',
-        data: {},
-        success: (data) =>{
-            console.log(data);
-        },
-        error: (err) => {
-            console.log(err);
-        }
-    });
-};
-
 const createOrder = () => {
-    let email = $('input[name="email"]').val();
+    let id = $('input[name="id"]').val();
     let itemId = $('input[name="itemId"]').val();
     $.ajax({
-        url: '/api/user/' + email + '/order',
+        url: '/api/users/' + id + '/orders',
         type: 'post',
         dataType: 'application/json',
         data: {itemId : itemId},
@@ -121,6 +35,69 @@ const createOrder = () => {
     });
     return false;
 };
+const createItem = (e) => {
+    e.preventDefault();
+    let formData = new FormData($('#createItemForm')[0]);
+    $.ajax({
+        url: '/api/items',
+        type: 'post',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: (data) => {
+            console.log(data);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+    return false;
+};
+
+const readAllUsers = () => {
+    $.ajax({
+        url: '/api/users',
+        type: 'get',
+        dataType: 'application/json',
+        data: {},
+        success: (data) => {
+            console.log(data);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+};
+const readUserByEmail = (email) => {
+    $.ajax({
+        url: '/api/users/'+email,
+        type: 'get',
+        dataType: 'application/json',
+        data: {},
+        success: (data) => {
+            console.log(data);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+};
+const readAllItems = () => {
+    $.ajax({
+        url: '/api/items',
+        type: 'get',
+        dataType: 'json',
+        data: {},
+        success: (data) =>{
+            console.log(data);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+};
+
+
 
 
 $('#createUserForm').submit(createUser);

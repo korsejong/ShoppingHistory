@@ -27,17 +27,17 @@ const router = require('express').Router();
 const service = require('../service/userService');
 
 router.get('/', service.readAllUser);
-router.get('/:email', service.readUserByEmail);
 router.post('/', service.createUser);
-router.put('/:email', service.updateUser);
-router.delete('/:email', service.deleteUser);
+router.put('/:id', service.updateUser);
+router.delete('/:id', service.deleteUser);
 
+router.get('/:id/orders', service.readAllOrders);
+router.post('/:id/orders', service.createOrder);
+router.put('/:id/orders/:itemId', service.updateOrder);
+router.delete('/:id/orders/:itemId', service.deleteOrder);
 
-router.get('/:email/order/:itemId', service.readOrderById);
-router.post('/:email/order', service.createOrder);
-router.put('/:email/order/:itemId', service.updateOrder);
-router.delete('/:email/order/:itemId', service.deleteOrder);
+// search
+router.get('/:email', service.readUserByEmail);
 
-router.get('/:email/order/all', service.readAllOrders);
 
 module.exports = router;

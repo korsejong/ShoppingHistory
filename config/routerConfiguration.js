@@ -8,10 +8,10 @@ const orderManagement = require('../routes/data_management/order');
 
 module.exports = app => {
     app.use('/', index);
-    app.use('/list/user', userList);
-    app.use('/list/item', itemList);
-    app.use('/list/order', orderList);
-    app.use('/management/user', userManagement);
-    app.use('/management/item', itemManagement);
-    app.use('/management/order', orderManagement);
+    app.use('/list/users', userList);
+    app.use('/list/items', itemList);
+    app.use('/list/orders', orderList);
+    app.use('/management/users', userManagement);
+    app.use('/management/items', itemManagement);
+    app.use('/management/orders', orderManagement);
 }
