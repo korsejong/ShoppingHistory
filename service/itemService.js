@@ -15,7 +15,7 @@ module.exports = {
             let item = new Item(req.body);
             if(req.file) item.thumbnail = '/tmp/uploads/' + req.file.filename;
             item.save();
-            res.status(202).send('item: ' + item);
+            res.status(202).send(item);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
@@ -35,7 +35,7 @@ module.exports = {
             let item = await Item.findById(req.params.id);
             item.deleted = true;
             item.save();
-            res.status(202).send('item: ' + item);
+            res.status(202).send(item);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);

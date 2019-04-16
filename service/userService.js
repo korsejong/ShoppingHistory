@@ -14,7 +14,7 @@ module.exports = {
         try{
             let user = new User(req.body);
             user.save();
-            res.status(202).send('user: ' + user);
+            res.status(202).send(user);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
@@ -22,7 +22,7 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             // to do
         } catch (e) {
             console.log(e);
@@ -31,10 +31,10 @@ module.exports = {
     },
     deleteUser: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             user.deleted = true;
             user.save();
-            res.status(202).send('user: ' + user);
+            res.status(202).send(user);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
@@ -43,18 +43,7 @@ module.exports = {
     readAllUser: async (req, res) => {
         try{
             let users = await User.findAll();
-            console.log(users);
             res.status(200).send(users);
-        } catch (e) {
-            console.log(e);
-            res.status(400).send(e.message);
-        }
-    },
-    readOrderById: async (req, res) => {
-        try{
-            let user = await User.findByEmail(req.params.email);
-            // to do
-            res.status(200).send(user.orderItems);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
@@ -62,10 +51,10 @@ module.exports = {
     },
     createOrder: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             user.orderItems.push({item:req.body.itemId});
             user.save();
-            res.status(202).send('user: ' + user.email + ' item id: ' + req.body.itemId);
+            res.status(202).send(user);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
@@ -73,7 +62,7 @@ module.exports = {
     },
     updateOrder: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             // to do
         } catch (e) {
             console.log(e);
@@ -82,7 +71,7 @@ module.exports = {
     },
     deleteOrder: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             // to do
         } catch (e) {
             console.log(e);
@@ -91,7 +80,7 @@ module.exports = {
     },
     readAllOrders: async (req, res) => {
         try{
-            let user = await User.findByEmail(req.params.email);
+            let user = await User.findById(req.params.id);
             // to do
         } catch (e) {
             console.log(e);
