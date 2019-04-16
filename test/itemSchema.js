@@ -3,18 +3,15 @@ const mongoose = require('mongoose');
 const Item = require('../models/item');
 
 describe('Item Schema', () => {
-    before( (done) => {
-        mongoose.connect('mongodb://localhost/test',  { useCreateIndex :  true, useNewUrlParser: true });
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', () => {
-            done();
-        });
+    let db;
+    before( async() => {
+        await mongoose.connect('mongodb://localhost/test',
+            { useCreateIndex :  true, useNewUrlParser: true });
+        db = mongoose.connection;
     });
-    after( (done) => {
-        mongoose.connection.db.dropDatabase( () => {
-            mongoose.connection.close(done);
-        });
+    after( async() => {
+        await db.dropDatabase();
+        db.close();
     });
     describe('Statics', () => {
         const SIZE = 100;
@@ -23,7 +20,7 @@ describe('Item Schema', () => {
                 await new Item({name: 'dummy' + i, price: i}).save();
                 await new Item({name: 'dummy' + i, price: i, deleted: true}).save();
             }
-        })
+        });
         it('find all test', async () => {
             return (await Item.findAll()).length.should.be.equal(SIZE);
         });
@@ -37,7 +34,6 @@ describe('Item Schema', () => {
                     items[i].price.should.be.equal((page*amount+i));
                 }
             }
-            return ;
         });
         it('find by name test', async () => {
             for(let i=0;i<100;i++){
@@ -45,7 +41,6 @@ describe('Item Schema', () => {
                 let item = await Item.findByName(name);
                 item[0].name.should.be.equal(name);
             }
-            return ;
         });
     });
 });

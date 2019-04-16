@@ -8,143 +8,108 @@ const Item = require('../models/item');
 const service = require('../service/userService');
 
 describe('UserService', () => {
-    before( (done) => {
-        mongoose.connect('mongodb://localhost/test',  { useCreateIndex :  true, useNewUrlParser: true });
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', () => {
-            done();
-        });
+    let db;
+    before( async() => {
+        await mongoose.connect('mongodb://localhost/test',
+            { useCreateIndex :  true, useNewUrlParser: true });
+        db = mongoose.connection;
     });
-    after( (done) => {
-        mongoose.connection.db.dropDatabase( () => {
-            mongoose.connection.close(done);
-        });
+    after( async() => {
+        await db.dropDatabase();
+        db.close();
     });
-    describe('create', () => {
-        it('create user test', (done) => {
-            let req = httpMocks.createRequest({
-                method: 'POST',
-                url: '/user',
-                body: {
-                    email: 'email1'
-                }
-            });
-            let res = httpMocks.createResponse({eventEmitter:eventEmitter});
-            service.createUser(req, res);
-            res._getData();
-            res.statusCode.should.be.equal(202);
-            done();
+    describe('READ TEST', () => {
+        const USERS = [];
+        const SIZE = 100;
+        before( async() => {
+            for(let i=0;i<SIZE;i++){
+                let email = 'readDummy' + i;
+                let user = new User({email : email});
+                USERS.push(user);
+                await user.save();
+            }
         });
-    });
-    describe('read', () => {
-        before( async () => {
-            let user = new User({
-                email: 'email2'
-            });
-            await user.save();
-        });
-        it('read user test', (done) => {
+        it('READ ALL TEST', async() => {
             let req = httpMocks.createRequest({
                 method: 'GET',
-                url: '/user',
-                params: {
-                    email: 'email2'
-                }
+                url: '/users'
             });
-            let res = httpMocks.createResponse({eventEmitter:eventEmitter});
-            service.readUserByEmail(req, res);
-            res.on('end', () => {
-                res._getData();
+            let res = httpMocks.createResponse({eventEmitter: eventEmitter});
+            await service.readAllUser(req, res);
+            let data = res._getData();
+            res.statusCode.should.be.equal(200);
+            data.length.should.be.equal(SIZE);
+            for(let i=0;i<SIZE;i++){
+                data[i].email.should.be.equal(USERS[i].email);
+            }
+        });
+        it('READ USER BY EMAIL TEST', async() => {
+            for(let i=0;i<SIZE;i++){
+                let email = USERS[i].email;
+                let req = httpMocks.createRequest({
+                    method: 'GET',
+                    url: '/users',
+                    params: {
+                        email: email
+                    }
+                });
+                let res = httpMocks.createResponse({eventEmitter: eventEmitter});
+                await service.readUserByEmail(req, res);
+                let data = res._getData();
                 res.statusCode.should.be.equal(200);
-                done();
-            });
+                data.email.should.be.equal(email);
+            }
         });
     });
-    // describe('update', () => {
-    //     it('update user test', (done) => {
-    //         done();
+    describe('DELETE TEST', () => {
+        const USERS = [];
+        const SIZE = 100;
+        before( async() => {
+            for(let i=0;i<SIZE;i++){
+                let email = 'deleteDummy' + i;
+                let user = new User({email : email});
+                USERS.push(user);
+                await user.save();
+            }
+        });
+        it('DELETE TEST', async() => {
+            for(let i=0;i<SIZE;i++){
+                let id = USERS[i].id;
+                let req = httpMocks.createRequest({
+                    method: 'DELETE',
+                    url: '/users',
+                    params: {
+                        id: id
+                    }
+                });
+                let res = httpMocks.createResponse({eventEmitter: eventEmitter});
+                await service.deleteUser(req, res);
+                let data = res._getData();
+                res.statusCode.should.be.equal(202);
+                data.deleted.should.be.equal(true);
+            }
+        });
+    });
+    // describe('CREATE TEST', () => {
+    //     const SIZE = 100;
+    //     it('size 100', async () => {
+    //         for(let i=0;i<SIZE;i++){
+    //             let email = 'createDummy' + i;
+    //             let req = httpMocks.createRequest({
+    //                 method: 'POST',
+    //                 url: '/users',
+    //                 body: {
+    //                     email: email
+    //                 }
+    //             });
+    //             let res = httpMocks.createResponse({eventEmitter: eventEmitter});
+    //             await service.createUser(req, res);
+    //
+    //             let data = res._getData();
+    //             res.statusCode.should.be.equal(202);
+    //             data.email.should.be.equal(email);
+    //             data.deleted.should.be.equal(false);
+    //         }
     //     });
     // });
-    describe('delete', () => {
-        before( async () => {
-            let user = new User({
-                email: 'email3'
-            });
-            await user.save();
-        });
-        it('delete user test', (done) => {
-            let req = httpMocks.createRequest({
-                method: 'DELETE',
-                url: '/user',
-                params: {
-                    email: 'email3'
-                }
-            });
-            let res = httpMocks.createResponse({eventEmitter:eventEmitter});
-            service.deleteUser(req, res);
-            res.on('end', () => {
-                res._getData();
-                res.statusCode.should.be.equal(202);
-                done();
-            });
-        });
-    });
-    describe('create order', () => {
-        var itemId;
-        before( async () => {
-            let user = new User({
-                email: 'email4'
-            });
-            let item = new Item({
-                name: 'item1',
-                price: 1000,
-            });
-            itemId = item._id;
-            await user.save();
-            await item.save();
-        });
-        it('create order test', (done) => {
-            let req = httpMocks.createRequest({
-                method: 'POST',
-                url: '/user',
-                params: {
-                    email: 'email4',
-                    itemId: itemId
-                }
-            });
-            let res = httpMocks.createResponse({eventEmitter:eventEmitter});
-            service.createOrder(req, res);
-            res.on('end', () => {
-                res._getData();
-                res.statusCode.should.be.equal(202);
-                done();
-            });
-        });
-    });
-//     describe('read order', () => {
-//         it('read order by id test', (done) => {
-//             done();
-//         });
-//     });
-//     describe('update order', () => {
-//         it('read order test', (done) => {
-//             done();
-//         });
-//     });
-//     describe('delete order', () => {
-//         it('delete order test', (done) => {
-//             done();
-//         });
-//     });
-//     describe('delete order', () => {
-//         it('delete order test', (done) => {
-//             done();
-//         });
-//     });
-//     describe('read all order', () => {
-//         it('read all order test', (done) => {
-//             done();
-//         });
-//     });
 });

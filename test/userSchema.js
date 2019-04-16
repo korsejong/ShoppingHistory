@@ -3,18 +3,15 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 describe('User Schema', () => {
-    before( (done) => {
-        mongoose.connect('mongodb://localhost/test',  { useCreateIndex :  true, useNewUrlParser: true });
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', () => {
-            done();
-        });
+    let db;
+    before( async() => {
+        await mongoose.connect('mongodb://localhost/test',
+            { useCreateIndex :  true, useNewUrlParser: true });
+        db = mongoose.connection;
     });
-    after( (done) => {
-        mongoose.connection.db.dropDatabase( () => {
-            mongoose.connection.close(done);
-        });
+    after( async() => {
+        await db.dropDatabase();
+        db.close();
     });
     describe('Statics', () => {
         const SIZE = 100;
@@ -24,7 +21,7 @@ describe('User Schema', () => {
                 await new User({email: 'dummy' + i}).save();
                 await new User({email: 'deletedDummy' + i, deleted: true}).save();
             }
-        })
+        });
         it('find all test', async () => {
             return (await User.findAll()).length.should.be.equal(SIZE);
         });
@@ -37,7 +34,6 @@ describe('User Schema', () => {
                     users[i].email.should.be.equal("dummy" + (page*amount+i));
                 }
             }
-            return ;
         });
         it('find by email test', async () => {
             for(let i=0;i<100;i++){
@@ -45,7 +41,6 @@ describe('User Schema', () => {
                 let user = await User.findByEmail(email);
                 user.email.should.be.equal(email);
             }
-            return ;
         });
     });
 });
