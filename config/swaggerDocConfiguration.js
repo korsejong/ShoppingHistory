@@ -11,6 +11,6 @@ const options = {
     apis: ['controllers/*.js']
 };
 const specs = swaggerJsdoc(options);
-module.exports = (app) => {
+module.exports = app => {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 };
