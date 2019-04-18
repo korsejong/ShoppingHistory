@@ -28,7 +28,7 @@ describe('User Schema', () => {
         it('find in page test', async () => {
             let amount = 10;
             for(let page = 0; page<10;page++){
-                let users = await User.findInPage(page,amount);
+                let users = await User.findInPage({page:page,amount:amount});
                 users.length.should.be.equal(amount);
                 for(let i=0;i<amount;i++){
                     users[i].email.should.be.equal("dummy" + (page*amount+i));
