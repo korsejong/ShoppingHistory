@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const uuidv1 = require('uuid/v1');
 
 const userSchema = new Schema ({
     email: {
@@ -8,20 +7,9 @@ const userSchema = new Schema ({
         unique: true,
         required: true
     },
-    orderItems: [{
-        id: {
-            type: String,
-            default: uuidv1().toString()
-        },
-        item: {
-            type: Schema.Types.ObjectId,
-            ref: 'Item'
-        },
-        status: {
-            type: String,
-            required: true,
-            default: '접수'
-        }
+    orders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
     }],
     deleted: {
         type: Boolean,
@@ -38,10 +26,12 @@ userSchema.statics = {
     findAll() {
         return this.find({deleted: false});
     },
-    findInPage(page, amount){
-        amount = amount == null ? 10 : amount;
+    findInPage(options){
+        let page = options.page || 0;
+        let amount = options.amount || 10;
+        let sortBy = options.sortBy || 'created_at';
         return this.find({deleted: false})
-                    .sort('created_at')
+                    .sort(sortBy)
                     .limit(amount)
                     .skip(page*amount);
     },

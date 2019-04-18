@@ -2,11 +2,11 @@
 // const eventEmitter = require('events').EventEmitter;
 // const should = require('should');
 // const mongoose = require('mongoose');
-//
+
 // const User = require('../models/user');
 // const Item = require('../models/item');
 // const service = require('../service/itemService');
-//
+
 // describe('ItemService', () => {
 //     before( (done) => {
 //         mongoose.connect('mongodb://localhost/test',  { useCreateIndex :  true, useNewUrlParser: true });

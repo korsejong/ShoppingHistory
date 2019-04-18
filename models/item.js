@@ -28,10 +28,12 @@ itemSchema.statics = {
     findAll() {
         return this.find({deleted: false});
     },
-    findInPage(page, amount) {
-        amount = amount == null ? 10 : amount;
+    findInPage(options){
+        let page = options.page || 0;
+        let amount = options.amount || 10;
+        let sortBy = options.sortBy || 'created_at';
         return this.find({deleted: false})
-                    .sort('created_at')
+                    .sort(sortBy)
                     .limit(amount)
                     .skip(page*amount);
     },

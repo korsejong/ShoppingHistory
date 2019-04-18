@@ -27,7 +27,7 @@ describe('Item Schema', () => {
         it('find in page test', async () => {
             let amount = 10;
             for(let page = 0; page<10;page++){
-                let items = await Item.findInPage(page,amount);
+                let items = await Item.findInPage({page:page,amount:amount});
                 items.length.should.be.equal(amount);
                 for(let i=0;i<amount;i++){
                     items[i].name.should.be.equal("dummy" + (page*amount+i));
