@@ -11,5 +11,5 @@ module.exports = (uri, options) => {
     // mongoose의 기본 promise(mPrimise)를 Node.js의 promise로 교체
     mongoose.Promise = global.Promise;
     // mongoose.set('debug', true);
-    mongoose.connect(mongodbUri,  options);
+    mongoose.connect(uri,  options);
 };
