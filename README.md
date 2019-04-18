@@ -26,8 +26,10 @@
 * `"morgan": "~1.9.0"`
 * `"multer": "^1.4.1"`
 * `"pug": "^2.0.3"`
+* `"swagger-jsdoc": "^3.2.8"`
+* `"swagger-ui-express": "^4.0.2"`
 * `"uuid": "^3.3.2"`
-    
+
 ### Installation and Settings
 #### Build requirements
 * `Node.js 10.x+`
@@ -47,4 +49,10 @@ git clone https://github.com/korsejong/ShoppingHistory.git
 npm install
 sudo service mongod start
 npm test
+```
+
+#### API DOCS
+``` 
+swagger-jsdoc, swagger-ui-express 사용
+/api-docs 에서 확인하실 수 있습니다.
 ```
