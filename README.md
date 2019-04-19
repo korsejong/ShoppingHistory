@@ -4,6 +4,8 @@
 ### Demo
 ![demo](https://github.com/korsejong/ShoppingHistory/blob/master/ex.png)
 
+![api-doc-demo](https://github.com/korsejong/ShoppingHistory/blob/master/api-doc-ex.png)
+
 ### Repo Structure
 * `config/` - express(라우터, 컨트롤러), mongodb(데이터베이스)에 대한 설정이 있습니다.
 * `controllers/` - API를 제공하기 위한 컨트롤러가 등록되어 있습니다.
