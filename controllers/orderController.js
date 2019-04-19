@@ -37,33 +37,54 @@
  */
 /**
  * @swagger
- * /api/order:
- *   get:
- *     description: 
- *     tags: [Order]
- *     responses:
- *       200:
- *         description:
- *   post:
- *     description: 
- *     tags: [Order]
- *     responses:
- *       200:
- *         description:
- *   put:
- *     description:
- *     tags: [Order]
- *     responses:
- *       200:
- *         description:
- *   delete:
- *     description:
- *     tags: [Order]
- *     responses:
- *       200:
- *         description:
+ * paths:
+ *   /api/orders:
+ *     get:
+ *       description: "read all orders"
+ *       tags: [Order]
+ *       responses:
+ *         200:
+ *           description:
+ *     post:
+ *       description: "create order"
+ *       tags: [Order]
+ *       responses:
+ *         202:
+ *           description:
+ *     put:
+ *       description: "update order"
+ *       tags: [Order]
+ *       responses:
+ *         202:
+ *           description:
+ *     delete:
+ *       description: "delete order"
+ *       tags: [Order]
+ *       responses:
+ *         202:
+ *           description: 
+ *   /api/orders/{id}:
+ *     get:
+ *       description: "read order by id"
+ *       tags: [Order]
+ *       responses:
+ *         200:
+ *           description:
+ *   /api/orders/user-id/{userId}:
+ *     get:
+ *       description: "read orders by user id"
+ *       tags: [Order]
+ *       responses:
+ *         200:
+ *           description:
+ *   /api/orders/item-id/{itemId}:
+ *     get:
+ *       description: "read orders by item id"
+ *       tags: [Order]
+ *       responses:
+ *         200:
+ *           description:
  */
-
 
 const router = require('express').Router();
 const service = require('../service/orderService');

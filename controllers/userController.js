@@ -21,31 +21,46 @@
  */
 /**
  * @swagger
- * /api/user:
- *   get:
- *     description: 
- *     tags: [User]
- *     responses:
- *       200:
- *         description:
- *   post:
- *     description:  
- *     tags: [User]
- *     responses:
- *       200:
- *         description:
- *   put:
- *     description: 
- *     tags: [User]
- *     responses:
- *       200:
- *         description:
- *   delete:
- *     description: 
- *     tags: [User]
- *     responses:
- *       200:
- *         description:
+ * paths:
+ *   /api/users:
+ *     get:
+ *       description: "read all users"
+ *       tags: [User]
+ *       responses:
+ *         200:
+ *           description:
+ *     post:
+ *       description: "create user"
+ *       tags: [User]
+ *       responses:
+ *         202:
+ *           description:
+ *     put:
+ *       description: "update user"
+ *       tags: [User]
+ *       responses:
+ *         202:
+ *           description:
+ *     delete:
+ *       description: "delete user"
+ *       tags: [User]
+ *       responses:
+ *         202:
+ *           description: 
+ *   /api/users/{id}:
+ *     get:
+ *       description: "read user by id"
+ *       tags: [User]
+ *       responses:
+ *         200:
+ *           description:
+ *   /api/users/email/{email}:
+ *     get:
+ *       description: "read user by email"
+ *       tags: [User]
+ *       responses:
+ *         200:
+ *           description:
  */
 
 const router = require('express').Router();

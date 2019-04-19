@@ -25,31 +25,46 @@
  */
 /**
  * @swagger
- * /api/item:
- *   get:
- *     description: 
- *     tags: [Item]
- *     responses:
- *       200:
- *         description:
- *   post:
- *     description: 
- *     tags: [Item]
- *     responses:
- *       200:
- *         description:
- *   put:
- *     description:
- *     tags: [Item]
- *     responses:
- *       200:
- *         description:
- *   delete:
- *     description:
- *     tags: [Item]
- *     responses:
- *       200:
- *         description:
+ * paths:
+ *   /api/items:
+ *     get:
+ *       description: "read all items"
+ *       tags: [Item]
+ *       responses:
+ *         200:
+ *           description:
+ *     post:
+ *       description: "create item"
+ *       tags: [Item]
+ *       responses:
+ *         202:
+ *           description:
+ *     put:
+ *       description: "update item"
+ *       tags: [Item]
+ *       responses:
+ *         202:
+ *           description:
+ *     delete:
+ *       description: "delete item"
+ *       tags: [Item]
+ *       responses:
+ *         202:
+ *           description: 
+ *   /api/items/{id}:
+ *     get:
+ *       description: "read item by id"
+ *       tags: [Item]
+ *       responses:
+ *         200:
+ *           description:
+ *   /api/items/name/{name}:
+ *     get:
+ *       description: "read items by name"
+ *       tags: [Item]
+ *       responses:
+ *         200:
+ *           description:
  */
 
 const router = require('express').Router();
