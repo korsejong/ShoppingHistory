@@ -2,6 +2,8 @@
 > 임의의 쇼핑 데이터를 등록하고 등록한 쇼핑 데이터를 분석할 수 있는 사이트입니다.
 
 ### Demo
+http://54.180.99.103
+
 ![demo](https://github.com/korsejong/ShoppingHistory/blob/master/ex.png)
 
 ![api-doc-demo](https://github.com/korsejong/ShoppingHistory/blob/master/api-doc-ex.png)
