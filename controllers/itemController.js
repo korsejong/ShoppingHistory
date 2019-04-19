@@ -55,12 +55,13 @@
 const router = require('express').Router();
 const service = require('../service/itemService');
 const upload = require('../utils/fileUpload');
+const logger = require('../utils/customLogger');
 
-router.get('/', service.readAllItems);
-router.get('/:id', service.readItemById);
-router.get('/name/:name', service.readItemsByName);
-router.post('/', upload.single('thumbnail'), service.createItem);
-router.put('/:id', service.updateItem);
-router.delete('/:id', service.deleteItem);
+router.get('/', logger, service.readAllItems);
+router.get('/:id', logger, service.readItemById);
+router.get('/name/:name', logger, service.readItemsByName);
+router.post('/', upload.single('thumbnail'), logger, service.createItem);
+router.put('/:id', logger, service.updateItem);
+router.delete('/:id', logger, service.deleteItem);
 
 module.exports = router;

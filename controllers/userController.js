@@ -50,12 +50,13 @@
 
 const router = require('express').Router();
 const service = require('../service/userService');
+const logger = require('../utils/customLogger');
 
-router.get('/', service.readAllUsers);
-router.get('/:id', service.readUserById);
-router.get('/email/:email', service.readUserByEmail);
-router.post('/', service.createUser);
-router.put('/:id', service.updateUser);
-router.delete('/:id', service.deleteUser);
+router.get('/', logger, service.readAllUsers);
+router.get('/:id', logger, service.readUserById);
+router.get('/email/:email', logger, service.readUserByEmail);
+router.post('/', logger, service.createUser);
+router.put('/:id', logger, service.updateUser);
+router.delete('/:id', logger, service.deleteUser);
 
 module.exports = router;

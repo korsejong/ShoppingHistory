@@ -67,13 +67,14 @@
 
 const router = require('express').Router();
 const service = require('../service/orderService');
+const logger = require('../utils/customLogger');
 
-router.get('/', service.readAllOrders);
-router.get('/:id', service.readOrderById);
-router.get('/user-id/:userId', service.readOrdersByUserId);
-router.get('/item-id/:itemId', service.readOrdersByItemId);
-router.post('/', service.createOrder);
-router.put('/:id', service.updateOrder);
-router.delete('/:id', service.deleteOrder);
+router.get('/', logger, service.readAllOrders);
+router.get('/:id', logger, service.readOrderById);
+router.get('/user-id/:userId', logger, service.readOrdersByUserId);
+router.get('/item-id/:itemId', logger, service.readOrdersByItemId);
+router.post('/', logger, service.createOrder);
+router.put('/:id', logger, service.updateOrder);
+router.delete('/:id', logger, service.deleteOrder);
 
 module.exports = router;
