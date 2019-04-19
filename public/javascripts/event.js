@@ -7,7 +7,7 @@ const createUser = (e) => {
         url: '/api/users',
         type: 'post',
         dataType: 'json',
-        data: user,
+        data: {user:user},
         success: (data) => {
             console.log(data);
             alert("success");
@@ -30,8 +30,9 @@ const createOrder = () => {
     $.ajax({
         url: '/api/orders/',
         type: 'post',
+        contentType: 'application/x-www-form-urlencoded',
         dataType: 'json',
-        data: order,
+        data: {order:order},
         success: (data) =>{
             console.log(data);
             alert("success");

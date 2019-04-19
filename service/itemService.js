@@ -3,7 +3,7 @@ const Item = require('../models/item');
 module.exports = {
     createItem: (req, res) => {
         try{
-            let item = new Item(req.body);
+            let item = new Item(req.body.item);
             if(req.file) item.thumbnail = '/tmp/uploads/' + req.file.filename;
             item.save();
             res.status(202).send(item);

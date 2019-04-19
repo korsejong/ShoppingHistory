@@ -5,8 +5,8 @@ const Order = require('../models/order');
 module.exports = {
     createOrder: async (req, res) => {
         try {
-            let order = new Order(req.body);
-            let user = await User.findById(req.body.user);
+            let order = new Order(req.body.order);
+            let user = await User.findById(req.body.order.user);
             user.orders.push(order);
             user.save();
             order.save();

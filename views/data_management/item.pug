@@ -7,9 +7,9 @@ block content
         form#createItemForm(method='post' action='/api/item' enctype="multipart/form-data")
             div.row
                 div.form-group.col-9
-                    input.form-control(type='text' name='name' placeholder='Enter name')
+                    input.form-control(type='text' name='item[name]' placeholder='Enter name')
                 div.form-group.col-9
-                    input.form-control(type='number' name='price' placeholder='Enter price')
+                    input.form-control(type='number' name='item[price]' placeholder='Enter price')
                 div.form-group.col-9
                     input.form-control(type='file' name='thumbnail')
                 div.form-group.col-3

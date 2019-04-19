@@ -3,7 +3,7 @@ const User = require('../models/user');
 module.exports = {
     createUser: (req, res) => {
         try{
-            let user = new User(req.body);
+            let user = new User(req.body.user);
             user.save();
             res.status(202).send(user);
         } catch (e) {
