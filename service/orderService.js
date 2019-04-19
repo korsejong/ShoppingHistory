@@ -55,7 +55,9 @@ module.exports = {
     updateOrder: async (req, res) => {
         try {
             let order = await Order.findById(req.params.id);
-            // to do
+            Object.assign(order, req.body.order);
+            order.save();
+            res.status(202).send(order);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);

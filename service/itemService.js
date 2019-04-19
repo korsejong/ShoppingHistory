@@ -42,7 +42,9 @@ module.exports = {
     updateItem: async (req, res) => {
         try{
             let item = await Item.findById(req.params.id);
-            // to do
+            Object.assign(item, req.body.item);
+            item.save();
+            res.status(202).send(item);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);

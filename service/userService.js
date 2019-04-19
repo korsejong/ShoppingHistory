@@ -41,7 +41,9 @@ module.exports = {
     updateUser: async (req, res) => {
         try{
             let user = await User.findById(req.params.id);
-            // to do
+            Object.assign(user, req.body.user);
+            user.save();
+            res.status(202).send(user);
         } catch (e) {
             console.log(e);
             res.status(400).send(e.message);
